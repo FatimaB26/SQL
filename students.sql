@@ -1,5 +1,8 @@
+-- BASE DE DONNEES
 CREATE DATABASE school CHARACTER SET 'utf8';
 
+
+-- Students
 CREATE TABLE students (
     id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
     name VARCHAR(30) NOT NULL,
@@ -15,6 +18,8 @@ VALUES (1, 'Veronique', 'Paris'),
         (5, 'Romain', 'Paris'),
         (6, 'Sophie', 'Paris');
 
+
+-- LANGUAGES
 CREATE TABLE languages (
     id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
     name VARCHAR(30) NOT NULL,
@@ -28,6 +33,8 @@ VALUES (1, 'French'),
         (4, 'Spanish'),
         (5, 'Mandarin');
 
+
+-- FAVORITES
 CREATE TABLE favorites (
     id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
     class VARCHAR(30) NOT NULL,
@@ -44,6 +51,8 @@ VALUES (1, 'Maths', 'Cricket', 2),
         (5, 'Computer science', 'Tennis', 5),
         (6, 'Arts', 'Baseball', 4);
 
+
+-- STUDENTS LANGUAGES
 CREATE TABLE students_languages (
     id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
     student_id VARCHAR(1) NOT NULL,
@@ -67,3 +76,61 @@ VALUES (1, 1, 1),
         (13, 6, 2),
         (14, 6, 3);
 
+
+-- RAPPORT LVL1 / REQUETES
+SELECT * 
+FROM students 
+WHERE id=3;
+
+SELECT * 
+FROM students 
+WHERE id=6;
+
+SELECT name, ville 
+FROM students
+WHERE id=1;
+
+SELECT name 
+FROM students
+WHERE id=2;
+
+SELECT *
+FROM students
+WHERE ville='Paris';
+
+SELECT name
+FROM students
+WHERE ville='Lyon';
+
+
+-- RAPPORT LVL2 / REQUETES
+SELECT *
+FROM favorites
+INNER JOIN students ON favorites.student_id = students.id
+WHERE favorites.student_id = 5;
+
+SELECT name, sport
+FROM favorites
+INNER JOIN students ON favorites.student_id = students.id
+WHERE students.id = 4;
+
+SELECT name , class
+FROM favorites
+INNER JOIN students ON favorites.student_id = students.id
+WHERE students.id = 1;
+
+SELECT *
+FROM favorites
+INNER JOIN students ON favorites.student_id = students.id
+WHERE favorites.class = 'Music';
+
+SELECT name
+FROM favorites
+INNER JOIN students ON favorites.student_id = students.id
+WHERE favorites.sport = 'Tennis';
+
+SELECT name
+FROM favorites
+INNER JOIN students ON favorites.student_id = students.id
+WHERE favorites.class = 'Music'
+ OR favorites.class ='Arts';
